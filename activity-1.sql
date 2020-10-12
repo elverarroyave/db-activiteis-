@@ -98,3 +98,9 @@ FROM customer c, sale s, product p WHERE (s.customer_id = c.id and s.product_id 
 
 
 -- 4) Id y nombre de los clientes que no aparecen en la tabla de ventas(Cliente que no han comprado prodcutos)
+
+INSERT INTO customer (id, name, address, telephone, city) VALUES (98,'Pacho','Lagos','12345687978','Caucasia');
+
+SELECT
+    id, name 
+FROM customer WHERE NOT EXISTS( SELECT * FROM SALE where customer_id = customer.id);
