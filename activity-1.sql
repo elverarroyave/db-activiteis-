@@ -101,6 +101,44 @@ FROM customer c, sale s, product p WHERE (s.customer_id = c.id and s.product_id 
 
 INSERT INTO customer (id, name, address, telephone, city) VALUES (98,'Pacho','Lagos','12345687978','Caucasia');
 
+
 SELECT
     id, name 
 FROM customer WHERE NOT EXISTS( SELECT * FROM SALE where customer_id = customer.id);
+
+
+-- 5) Id y nombre de los clientes que han comprado todos los productos de la empresa.
+
+INSERT INTO sale (id, amount, customer_id, product_id) VALUES (21,1,98,1);
+INSERT INTO sale (id, amount, customer_id, product_id) VALUES (22,1,98,2);
+INSERT INTO sale (id, amount, customer_id, product_id) VALUES (23,1,98,3);
+INSERT INTO sale (id, amount, customer_id, product_id) VALUES (24,1,98,4);
+INSERT INTO sale (id, amount, customer_id, product_id) VALUES (25,1,98,5);
+INSERT INTO sale (id, amount, customer_id, product_id) VALUES (26,1,98,6);
+INSERT INTO sale (id, amount, customer_id, product_id) VALUES (27,1,98,7);
+INSERT INTO sale (id, amount, customer_id, product_id) VALUES (29,1,98,8);
+INSERT INTO sale (id, amount, customer_id, product_id) VALUES (30,1,98,9);
+INSERT INTO sale (id, amount, customer_id, product_id) VALUES (31,1,98,10);
+INSERT INTO sale (id, amount, customer_id, product_id) VALUES (32,1,98,11);
+INSERT INTO sale (id, amount, customer_id, product_id) VALUES (33,1,98,12);
+INSERT INTO sale (id, amount, customer_id, product_id) VALUES (34,1,98,13);
+INSERT INTO sale (id, amount, customer_id, product_id) VALUES (35,1,98,14);
+INSERT INTO sale (id, amount, customer_id, product_id) VALUES (36,1,98,15);
+INSERT INTO sale (id, amount, customer_id, product_id) VALUES (37,1,98,16);
+INSERT INTO sale (id, amount, customer_id, product_id) VALUES (38,1,98,17);
+INSERT INTO sale (id, amount, customer_id, product_id) VALUES (39,1,98,18);
+INSERT INTO sale (id, amount, customer_id, product_id) VALUES (40,1,98,19);
+INSERT INTO sale (id, amount, customer_id, product_id) VALUES (41,1,98,20);
+
+DELETE FROM sale where (id = 41);
+
+SELECT 
+        c.id, c.name
+FROM customer c
+    WHERE (SELECT COUNT(DISTINCT product_id) FROM sale s 
+                WHERE 
+                    c.id = s.customer_id) = (SELECT COUNT(*) FROM product); 
+
+
+
+
