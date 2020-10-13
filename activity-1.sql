@@ -138,7 +138,30 @@ FROM customer c
     WHERE (SELECT COUNT(DISTINCT product_id) FROM sale s 
                 WHERE 
                     c.id = s.customer_id) = (SELECT COUNT(*) FROM product); 
+                    
+
+-- 6) Id, nombre de cada cliente y la suma total (suma de cantidad) de los productos que ha comprado.
+
+SELECT
+    c.id, c.name, sum(s.amount)
+FROM customer c join sale s on c.id = s.customer_id
+GROUP BY c.id, c.name;
+
+-- 7) Id de los productos que no han sido comprados por clientes de Tunja.
+
+SELECT 
+    p.id 
+FROM product p WHERE p.id NOT IN (SELECT c.id FROM customer c JOIN sale s ON c.id = s.customer_id where city = 'Tunja');}
+
+-- Tendremos que agregar los productos que no han sido comprados por nadie????
+
+--Verificación
+SELECT * FROM sale s JOIN customer c ON s.customer_id = c.id WHERE ( city = 'Tunja' );
 
 
+-- 8) Id de los productos que se han vendido a clientes de Medellín y que también se han vendido a clientes de Bogotá.
+    
+
+-- 9) Nombre de las ciudades en las que se han vendido todos los productos.
 
 
