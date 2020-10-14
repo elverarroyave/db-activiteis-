@@ -147,20 +147,26 @@ SELECT
 FROM customer c join sale s on c.id = s.customer_id
 GROUP BY c.id, c.name;
 
--- 7) Id de los productos que no han sido comprados por clientes de Tunja.
+-- 7) Id de los productos que no han sido comprados por clientes de Tunja
 
-SELECT 
-    p.id 
-FROM product p WHERE p.id NOT IN (SELECT c.id FROM customer c JOIN sale s ON c.id = s.customer_id where city = 'Tunja');}
+SELECT  
+    distinct p.id 
+FROM product p LEFT JOIN sale s on p.id = s.product_id WHERE p.id NOT IN (SELECT c.id FROM customer c where city = 'Tunja');
 
 -- Tendremos que agregar los productos que no han sido comprados por nadie????
 
 --Verificación
 SELECT * FROM sale s JOIN customer c ON s.customer_id = c.id WHERE ( city = 'Tunja' );
 
+-- Verificacion de producto no comprado por nadie
+INSERT INTO product (id, description, price) VALUES (99,'Este es un producto no comprado por nadie',9.99);
+
+SELECT * FROM product;
+
 
 -- 8) Id de los productos que se han vendido a clientes de Medellín y que también se han vendido a clientes de Bogotá.
     
+
 
 -- 9) Nombre de las ciudades en las que se han vendido todos los productos.
 
